@@ -1,0 +1,30 @@
+{
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install"
+    }
+  ],
+  "tasks": {
+    "db:up": {
+      "name": "db:up",
+      "command": "npm run db:up",
+      "runAtStart": true
+    },
+    "db:migrate": {
+      "name": "db:migrate",
+      "command": "npm run db:migrate",
+      "runAtStart": false
+    },
+    "1": {
+      "name": "1",
+      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a01-access-control/AccessControlServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
+      "runAtStart": false
+    },
+    "4": {
+      "name": "4",
+      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a04-insecure-design/BuyProductServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
+      "runAtStart": false
+    }
+  }
+}

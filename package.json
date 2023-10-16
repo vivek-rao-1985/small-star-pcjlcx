@@ -1,0 +1,24 @@
+{
+  "name": "OWASP",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "src/*"
+  ],
+  "version": "0.1.0",
+  "license": "CC-BY-SA-4.0",
+  "description": "OWASP",
+  "main": "index.js",
+  "imports": {
+    "#/*": "src/*"
+  },
+  "scripts": {
+    "db:up": "docker-compose up -d",
+    "db:migrate": "postgrator",
+    "db:down": "docker-compose down"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "postgrator-cli": "^7.0.0"
+  }
+}

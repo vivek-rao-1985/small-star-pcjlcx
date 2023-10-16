@@ -18,12 +18,37 @@
     },
     "1": {
       "name": "1",
-      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a01-access-control/AccessControlServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
+      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar:/opt/tomcat/lib/json-20201115.jar:/opt/tomcat/lib/postgresql-42.2.5.jar:/opt/tomcat/lib/java-jwt-3.18.2.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a01-access-control/AccessControlServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
+      "runAtStart": false
+    },
+    "2": {
+      "name": "2",
+      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar:/opt/tomcat/lib/json-20201115.jar:/opt/tomcat/lib/postgresql-42.2.5.jar:/opt/tomcat/lib/java-jwt-3.18.2.jar:/opt/tomcat/lib/jbcrypt-0.4.jar:/opt/tomcat/lib/javafaker-1.0.2.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a02-cryptographic-failure/AuthenticationServlets.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
+      "runAtStart": false
+    },
+    "3": {
+      "name": "3",
+      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar:/opt/tomcat/lib/json-20201115.jar:/opt/tomcat/lib/postgresql-42.2.5.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a03-injection/AuthenticationServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
       "runAtStart": false
     },
     "4": {
       "name": "4",
+      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar:/opt/tomcat/lib/bucket4j-core-4.10.0.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a04-insecure-design/BuyProductServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
+      "runAtStart": false
+    },
+    "7": {
+      "name": "7",
+      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar:/opt/tomcat/lib/javafaker-1.0.2.jar:/opt/tomcat/lib/json-20201115.jar:/opt/tomcat/lib/java-jwt-3.18.2.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a07-authentication-failures/AuthenticationServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
+      "runAtStart": false
+    },
+    "8": {
+      "name": "8",
       "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a04-insecure-design/BuyProductServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
+      "runAtStart": false
+    },
+    "9": {
+      "name": "9",
+      "command": "cp ./a04-insecure-design/server.xml /opt/tomcat/ && javac -cp /opt/tomcat/lib/servlet-api.jar -d /opt/tomcat/webapps/MyApp/WEB-INF/classes ./a09-security-logging/ProfileServlet.java && /opt/tomcat/bin/catalina.sh run -config ./server.xml",
       "runAtStart": false
     }
   }

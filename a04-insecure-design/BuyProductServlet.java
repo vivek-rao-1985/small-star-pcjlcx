@@ -1,3 +1,4 @@
+/*
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,8 @@ public class BuyProductServlet extends HttpServlet {
     }
 }
 
+*/
 
-/*
 import io.github.bucket4j.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,12 +28,11 @@ import java.io.PrintWriter;
 import java.time.Duration;
 
 @WebServlet("/buy-product")
-public class MyServlet extends HttpServlet {
+public class BuyProductServlet extends HttpServlet {
 
     private final Bucket bucket;
 
-    public Servlet() {
-        // Create a bucket with a limit of 10 tokens, and a refill rate of 10 tokens per minute.
+    public BuyProductServlet() {
         Bandwidth limit = Bandwidth.simple(10, Duration.ofMinutes(1));
         this.bucket = Bucket4j.builder().addLimit(limit).build();
     }
@@ -43,13 +43,10 @@ public class MyServlet extends HttpServlet {
 
         // Try to consume a single token from the bucket.
         if (bucket.tryConsume(1)) {
-            // Allowed to proceed
             out.println("{\"success\": true}");
         } else {
-            // Too many requests
             response.setStatus(429);
             out.println("{\"success\": false, \"message\": \"Too many requests\"}");
         }
     }
 }
-*/

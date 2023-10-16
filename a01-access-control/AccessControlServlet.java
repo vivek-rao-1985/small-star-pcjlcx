@@ -1,3 +1,4 @@
+/*
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -63,8 +64,8 @@ public class AccessControlServlet extends HttpServlet {
         }
         return userJson;
     }
-}
-/*
+} */
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -134,4 +135,3 @@ public class AccessControlServlet extends HttpServlet {
         return userJson;
     }
 }
-*/

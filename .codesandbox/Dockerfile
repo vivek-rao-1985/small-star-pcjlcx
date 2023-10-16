@@ -17,6 +17,11 @@ RUN wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.82/bin/apache-tomcat-
 RUN cd /tmp && tar xvfz tomcat.tar.gz
 RUN mv /tmp/apache-tomcat-9.0.82 /opt/tomcat
 
+RUN wget https://repo1.maven.org/maven2/org/json/json/20201115/json-20201115.jar -O /opt/tomcat/lib/json-20201115.jar
+RUN wget https://jdbc.postgresql.org/download/postgresql-42.2.5.jar -O /opt/tomcat/lib/postgresql-42.2.5.jar
+RUN wget https://repo1.maven.org/maven2/com/auth0/java-jwt/3.18.2/java-jwt-3.18.2.jar -O /opt/tomcat/lib/java-jwt-3.18.2.jar
+RUN wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.13.2/jackson-databind-2.13.2.jar -O /opt/tomcat/lib/jackson-databind-2.13.2.jar
+RUN wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.13.2/jackson-core-2.13.2.jar -O /opt/tomcat/lib/jackson-core-2.13.2.jar
 RUN wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.13.2/jackson-annotations-2.13.2.jar -O /opt/tomcat/lib/jackson-annotations-2.13.2.jar
 RUN wget -O /opt/tomcat/lib/jbcrypt-0.4.jar https://repo1.maven.org/maven2/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar
 RUN wget -O /opt/tomcat/lib/javafaker-1.0.2.jar https://repo1.maven.org/maven2/com/github/javafaker/javafaker/1.0.2/javafaker-1.0.2.jar

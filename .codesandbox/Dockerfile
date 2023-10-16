@@ -17,6 +17,13 @@ RUN wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.82/bin/apache-tomcat-
 RUN cd /tmp && tar xvfz tomcat.tar.gz
 RUN mv /tmp/apache-tomcat-9.0.82 /opt/tomcat
 
+RUN wget https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.13.2/jackson-annotations-2.13.2.jar -O /opt/tomcat/lib/jackson-annotations-2.13.2.jar
+RUN wget -O /opt/tomcat/lib/jbcrypt-0.4.jar https://repo1.maven.org/maven2/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar
+RUN wget -O /opt/tomcat/lib/javafaker-1.0.2.jar https://repo1.maven.org/maven2/com/github/javafaker/javafaker/1.0.2/javafaker-1.0.2.jar
+RUN wget -O /opt/tomcat/lib/snakeyaml-1.29.jar https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.29/snakeyaml-1.29.jar
+RUN wget -O /opt/tomcat/lib/bucket4j-core-4.10.0.jar https://repo1.maven.org/maven2/com/github/vladimir-bukhtoyarov/bucket4j-core/4.10.0/bucket4j-core-4.10.0.jar
+RUN wget -O /opt/tomcat/lib/commons-collections-3.2.1.jar https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar
+
 
 COPY --from=library/docker:latest /usr/local/bin/docker /usr/bin/docker
 COPY --from=docker/compose:1.22.0 /usr/local/bin/docker-compose /usr/bin/docker-compose

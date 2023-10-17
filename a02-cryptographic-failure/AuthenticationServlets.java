@@ -24,8 +24,24 @@ public class AuthenticationServlets {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "owasp10";
+
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hashInBytes = md.digest(password.getBytes());
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashInBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
  
-    @WebServlet("/change-password")
+    @WebServlet("/a02/change-password")
     public static class Servlet1 extends HttpServlet {
         public static String getTokenPayload(HttpServletRequest request) {
         String token = request.getHeader("Authorization").split(" ")[1];
@@ -41,7 +57,7 @@ public class AuthenticationServlets {
             return;
         }
 
-        String hashedPassword = hashPassword(password);
+        String hashedPassword = AuthenticationServlets.hashPassword(password);
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement statement = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ? RETURNING id, username")) {
@@ -61,25 +77,11 @@ public class AuthenticationServlets {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
     }
-
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hashInBytes = md.digest(password.getBytes());
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashInBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
 
-    @WebServlet("/all-data")
+
+
+    @WebServlet("/a02/all-data")
     public static class Servlet2 extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -105,8 +107,8 @@ public class AuthenticationServlets {
         }
     }
 
-    @WebServlet("/register")
-public class Servlet3 extends HttpServlet {
+    @WebServlet("/a02/register")
+public static class Servlet3 extends HttpServlet {
 
     private static final String SECRET_KEY = "secret";
     private static final Faker faker = new Faker();
@@ -121,8 +123,9 @@ public class Servlet3 extends HttpServlet {
         }
 
         int age = new Random().nextInt(74) + 12;
-        String creditCardNumber = faker.finance().creditCard().replaceAll("-", "");;
-        String hashedPassword = this.hashPassword(password);
+        String creditCardNumber = faker.finance().creditCard().replaceAll("-", "");
+        creditCardNumber = creditCardNumber.substring(0, 16);
+        String hashedPassword = AuthenticationServlets.hashPassword(password);
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (username, password, age, credit_card_number) VALUES (?, ?, ?, ?) RETURNING id, username")) {
 
@@ -155,22 +158,59 @@ public class Servlet3 extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
     }
-     private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hashInBytes = md.digest(password.getBytes());
+}
 
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashInBytes) {
-                sb.append(String.format("%02x", b));
+@WebServlet("/a02/login")
+public static class Servlet4 extends HttpServlet {
+
+    private static final String SECRET_KEY = "secret";
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing username or password");
+            return;
+        }
+
+        String hashedPassword = AuthenticationServlets.hashPassword(password);
+        
+        try (Connection conn = DriverManager.getConnection(AuthenticationServlets.DB_URL, AuthenticationServlets.DB_USER, AuthenticationServlets.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("SELECT id, username FROM users WHERE username = ? AND password = ?")) {
+
+            stmt.setString(1, username);
+            stmt.setString(2, hashedPassword);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int userId = rs.getInt("id");
+                    String returnedUsername = rs.getString("username");
+
+                    String token = JWT.create()
+                            .withClaim("id", userId)
+                            .withClaim("username", returnedUsername)
+                            .sign(Algorithm.HMAC256(SECRET_KEY));
+
+                    JSONObject jsonResponse = new JSONObject();
+                    jsonResponse.put("token", token);
+
+                    response.setContentType("application/json");
+                    response.getWriter().println(jsonResponse.toString());
+                } else {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid username or password");
+                }
             }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
     }
-} }
+}
+} 
+
+
 
 /*
 import javax.servlet.annotation.WebServlet;
@@ -195,12 +235,17 @@ import java.security.NoSuchAlgorithmException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.json.JSONObject;
+
 public class AuthenticationServlets {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "owasp10";
+
+    public static String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
  
-    @WebServlet("/change-password")
+    @WebServlet("/a02/change-password")
     public static class Servlet1 extends HttpServlet {
         public static String getTokenPayload(HttpServletRequest request) {
         String token = request.getHeader("Authorization").split(" ")[1];
@@ -216,7 +261,7 @@ public class AuthenticationServlets {
             return;
         }
 
-        String hashedPassword = hashPassword(password);
+        String hashedPassword = AuthenticationServlets.hashPassword(password);
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement statement = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ? RETURNING id, username")) {
@@ -236,13 +281,9 @@ public class AuthenticationServlets {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
     }
-
-    private String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
-    }
 }
 
-    @WebServlet("/all-data")
+    @WebServlet("/a02/all-data")
     public static class Servlet2 extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -269,10 +310,10 @@ public class AuthenticationServlets {
         }
     }
 
-    @WebServlet("/register")
-public class Servlet3 extends HttpServlet {
+    @WebServlet("/a02/register")
+public static class Servlet3 extends HttpServlet {
 
-    private static final String SECRET_KEY = "secret";
+    private static final String SECRET_KEY = "mysymmetricjwtsecret";
     private static final Faker faker = new Faker();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -284,9 +325,10 @@ public class Servlet3 extends HttpServlet {
             return;
         }
 
-        int age = new Random().nextInt(74) + 12; // Random age between 12 and 85
+        int age = new Random().nextInt(74) + 12;
         String creditCardNumber = faker.finance().creditCard().replaceAll("-", "");;
-        String hashedPassword = this.hashPassword(password);
+        creditCardNumber = creditCardNumber.substring(0, 16);
+        String hashedPassword = AuthenticationServlets.hashPassword(password);
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (username, password, age, credit_card_number) VALUES (?, ?, ?, ?) RETURNING id, username")) {
 
@@ -318,22 +360,60 @@ public class Servlet3 extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
-    }
-     private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hashInBytes = md.digest(password.getBytes());
+     }
+    } 
 
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashInBytes) {
-                sb.append(String.format("%02x", b));
+   @WebServlet("/a02/login")
+public static class Servlet4 extends HttpServlet {
+
+    private static final String SECRET_KEY = "secret";
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing username or password");
+            return;
+        }
+        
+        try (Connection conn = DriverManager.getConnection(AuthenticationServlets.DB_URL, AuthenticationServlets.DB_USER, AuthenticationServlets.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("SELECT id, username, password FROM users WHERE username = ?")) {
+
+            stmt.setString(1, username);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String storedHashedPassword = rs.getString("password");
+                    
+                    if(BCrypt.checkpw(password, storedHashedPassword)) {
+                        int userId = rs.getInt("id");
+                        String returnedUsername = rs.getString("username");
+
+                        String token = JWT.create()
+                                .withClaim("id", userId)
+                                .withClaim("username", returnedUsername)
+                                .sign(Algorithm.HMAC256(SECRET_KEY));
+
+                        JSONObject jsonResponse = new JSONObject();
+                        jsonResponse.put("token", token);
+
+                        response.setContentType("application/json");
+                        response.getWriter().println(jsonResponse.toString());
+                    } else {
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid username or password");
+                    }
+                } else {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid username or password");
+                }
             }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
     }
-} 
+
+}
 }
 */

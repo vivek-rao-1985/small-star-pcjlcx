@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.json.*;
 
-@WebServlet("/customer")
+@WebServlet("/a03/customer")
 public class AuthenticationServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DB_USER = "postgres";
@@ -72,7 +72,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.json.*;
 
-@WebServlet("/customer")
+@WebServlet("/a03/customer")
 public class AuthenticationServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DB_USER = "postgres";

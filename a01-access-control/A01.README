@@ -1,0 +1,14 @@
+Exercise Instructions A01
+
+1.The /profile route returns sensitive user data
+
+2.It takes a username query parameter to return the user’s info
+http://localhost:3000/profile?username=bob
+
+3.The route above returns bob’s data
+
+4.Bob’s data is being exposed! Remember we’re logged in as Alice and shouldn’t see Bob’s data
+            
+5.Edit the /profile route in the exercise folder to return only the
+logged-in user’s profile without exposing other people’s profiles
+

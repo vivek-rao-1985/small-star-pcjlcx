@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/buy-product")
+@WebServlet("/a04/buy-product")
 public class BuyProductServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Duration;
 
-@WebServlet("/buy-product")
+@WebServlet("/a04/buy-product")
 public class BuyProductServlet extends HttpServlet {
 
     private final Bucket bucket;
@@ -41,12 +41,11 @@ public class BuyProductServlet extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
-        // Try to consume a single token from the bucket.
         if (bucket.tryConsume(1)) {
             out.println("{\"success\": true}");
         } else {
             response.setStatus(429);
-            out.println("{\"success\": false, \"message\": \"Too many requests\"}");
+            out.println("{\"message\": \"Too many requests\"}");
         }
     }
 }

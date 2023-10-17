@@ -1,4 +1,4 @@
-/*
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.json.JSONObject;
@@ -17,7 +17,7 @@ import com.github.javafaker.Faker;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-@WebServlet("/register")
+@WebServlet("/a07/register")
 public class AuthenticationServlet extends HttpServlet {
 
     private static final String SECRET_KEY = "secret";
@@ -35,8 +35,9 @@ public class AuthenticationServlet extends HttpServlet {
             return;
         }
 
-        int age = new Random().nextInt(74) + 12; // Random age between 12 and 85
-        String creditCardNumber = faker.finance().creditCard().replaceAll("-", "");;
+        int age = new Random().nextInt(74) + 12;
+        String creditCardNumber = faker.finance().creditCard().replaceAll("-", "");
+        creditCardNumber = creditCardNumber.substring(0, 16);
         String hashedPassword = this.hashPassword(password);
         try (Connection conn = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (username, password, age, credit_card_number) VALUES (?, ?, ?, ?) RETURNING id, username")) {
@@ -86,8 +87,10 @@ public class AuthenticationServlet extends HttpServlet {
         }
     }
 } 
-*/
 
+
+
+/*
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.json.JSONObject;
@@ -106,7 +109,7 @@ import com.github.javafaker.Faker;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-@WebServlet("/register")
+@WebServlet("/a07/register")
 public class AuthenticationServlet extends HttpServlet {
 
     private static final String SECRET_KEY = "secret";
@@ -141,7 +144,7 @@ public class AuthenticationServlet extends HttpServlet {
                 }
             }
 
-            int age = new Random().nextInt(74) + 12; // Random age between 12 and 85
+            int age = new Random().nextInt(74) + 12;
             String creditCardNumber = faker.finance().creditCard().replaceAll("-", "");
             creditCardNumber = creditCardNumber.substring(0, 16);
             String hashedPassword = this.hashPassword(password);
@@ -192,3 +195,4 @@ public class AuthenticationServlet extends HttpServlet {
         }
     }
 }
+*/

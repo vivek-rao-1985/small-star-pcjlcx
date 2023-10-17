@@ -15,9 +15,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/profile?username=alice",
+              "raw": "{{SandBox_BaseURL3000}}/a01/profile?username=alice",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["profile"],
+              "path": ["a01", "profile"],
               "query": [
                 {
                   "key": "username",
@@ -39,9 +39,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/all-data",
+              "raw": "{{SandBox_BaseURL3000}}/a02/all-data",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["all-data"]
+              "path": ["a02", "all-data"]
             }
           },
           "response": []
@@ -61,9 +61,15 @@
               }
             },
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/change-password?password=newpassword",
+              "raw": "{{SandBox_BaseURL3000}}/a02/change-password?password=newpassword",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["change-password"]
+              "path": ["a02", "change-password"],
+   				"query": [
+                {
+                  "key": "password",
+                  "value": "newpassword"
+                }
+              ]
             }
           },
           "response": []
@@ -83,9 +89,19 @@
               }
             },
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/register?username=newUser&password=password1234",
+              "raw": "{{SandBox_BaseURL3000}}/a02/register?username=newUser&password=password1234",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["register"]
+              "path": ["a02", "register"],
+   				"query": [
+                {
+                  "key": "username",
+                  "value": "newUser"
+                }, {
+						 "key": "password",
+						 "value": "password1234"
+						}
+              ]
+
             }
           },
           "response": []
@@ -105,9 +121,18 @@
               }
             },
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/login?username=alice&password=1234",
+              "raw": "{{SandBox_BaseURL3000}}/a02/login?username=alice&password=1234",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["login"]
+              "path": ["a02", "login"],
+				"query": [
+                {
+                  "key": "username",
+                  "value": "newUser"
+                }, {
+						 "key": "password",
+						 "value": "password1234"
+						}
+              ]
             }
           },
           "response": []
@@ -123,9 +148,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/customer?name=alice",
+              "raw": "{{SandBox_BaseURL3000}}/a03/customer?name=alice",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["customer"],
+              "path": ["a03", "customer"],
               "query": [
                 {
                   "key": "name",
@@ -142,9 +167,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/customer?name=' OR '1'='1",
+              "raw": "{{SandBox_BaseURL3000}}/a03/customer?name=' OR '1'='1",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["customer"],
+              "path": ["a03", "customer"],
               "query": [
                 {
                   "key": "name",
@@ -166,9 +191,9 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/buy-product",
+              "raw": "{{SandBox_BaseURL3000}}/a04/buy-product",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["buy-product"]
+              "path": ["a04", "buy-product"]
             }
           },
           "response": []
@@ -193,9 +218,18 @@
               }
             },
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/register?username=bondJames&password=IamY0u",
+              "raw": "{{SandBox_BaseURL3000}}/a07/register?username=bondJames&password=IamY0u",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["register"]
+              "path": ["a07", "register"],
+					"query": [
+                {
+                  "key": "username",
+                  "value": "bondJames"
+                }, {
+						 "key": "password",
+						 "value": "IamY0u"
+						}
+              ]
             }
           },
           "response": []
@@ -217,9 +251,9 @@
               }
             ],
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/profile",
+              "raw": "{{SandBox_BaseURL3000}}/a08/profile",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["profile"]
+              "path": ["a08", "profile"]
             }
           },
           "response": []
@@ -236,9 +270,9 @@
               }
             ],
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/profile",
+              "raw": "{{SandBox_BaseURL3000}}/a08/profile",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["profile"]
+              "path": ["a08", "profile"]
             }
           },
           "response": []
@@ -260,9 +294,9 @@
               }
             ],
             "url": {
-              "raw": "{{SandBox_BaseURL3000}}/profile",
+              "raw": "{{SandBox_BaseURL3000}}/a09/profile",
               "host": ["{{SandBox_BaseURL3000}}"],
-              "path": ["profile"]
+              "path": ["a09", "profile"]
             }
           },
           "response": []
@@ -299,7 +333,7 @@
   "variable": [
     {
       "key": "SandBox_BaseURL3000",
-      "value": "https://4nh9pr-8005.csb.app/MyApp"
+      "value": "https://jnxhlq-8080.csb.app/MyApp"
     }
   ]
 }

@@ -1,0 +1,13 @@
+Exercise Instructions A02
+
+1. The /all-data endpoint returns all users and their passwords (hashed using md5).
+ Imagine this as a data breach
+
+2.Using the /all-data route, find Alice’s hashed password
+
+3.With this password hash, try to find the original password Alice created
+
+4.The Postman collection contains requests for doing the queries
+💡 There are websites to decrypt md5
+
+5. Use bcrypt instead of md5 to hash alice's password. check that the password changed using the all data route. 

@@ -1,0 +1,19 @@
+Exercise Instructions A04
+
+1. The /buy-product endpoint does not have protection against bots run by scalpers
+It means that someone can buy a lot of stock quickly and leave legitimate customers without any
+
+2. Run the server for step 4 (start-4)
+
+3.In Postman, run the query for A04: A04: Buy product Observe the data for success: true being returned
+
+4. Notice that there is no protection against multiple sequential purchases
+
+5. Prefer using rate limiter for your routes
+
+6. 💡 Using bucket4jis a good idea for setting a rate limit:
+https://github.com/bucket4j/bucket4j
+
+7.Let’s consider a scenario where a user can buy a maximum of two products per minute
+
+8.Edit the /buy-product route in the exercise folder considering the scenario above

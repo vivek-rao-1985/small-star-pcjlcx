@@ -1,0 +1,22 @@
+Exercise Instructions A07
+
+1.In 2017 the NIST recommended that websites should check all new passwords against available lists of data breaches.
+This practice has been adopted by OWASP and became part of their recommendation
+
+2.In a real scenario you should try to use something like have been pawned
+In the lab - the database contains the list of leaked passwords in databreachrecords (Migrations / 004) 
+
+3.Run the server for step 7 (start-7)
+
+4.In Postman, run the query for A07: Register. Observe a token is successfully returned 
+
+5.In the database check the databreachrecords table for password used in the Postman request body
+        
+6.It should not allow to use passwords that are known to be leaked
+
+7.💡 Using data available in dataBreachRecords check if requested password is safe to use
+Run sql query inside the /register endpoint to check if the password is there
+
+8.Return a 400 error with message indicating the source of the leak:
+'You are trying to use a password that is known to be exposed in data breaches: ${source}. Use a different one. Read more here:
+https://havebeenpwned.com

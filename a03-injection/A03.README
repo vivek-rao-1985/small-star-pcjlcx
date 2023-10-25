@@ -1,0 +1,10 @@
+Exercise Instructions A03
+
+1.Run the server for Ex-3 (start-3)
+
+2.A03 GET REQ : customer by name. Observe the data for name: "alice" being returned
+
+3.Try to run the query for A03: SQL Injection. Observe all the customers being returned
+The Query param value ' OR '1'='1 takes advantage of the unsafe string concatenation which will return every record in the table
+
+4. Implement the usage of parameterized queries using java.sql to eliminate the risk of a SQL Injection.

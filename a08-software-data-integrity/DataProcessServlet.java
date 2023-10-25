@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,8 +16,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.Claim;
 
 
-@WebServlet("/a01/profile")
-public class AccessControlServlet extends HttpServlet {
+@WebServlet("/a08/profile")
+public class DataProcessServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "owasp10";
@@ -66,4 +67,9 @@ public class AccessControlServlet extends HttpServlet {
         }
         return userJson;
     }
+
+    
 }
+
+
+

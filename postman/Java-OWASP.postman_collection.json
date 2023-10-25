@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "eb9b14f7-88af-4083-b75d-36827ae20668",
+		"name": "Java-OWASP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17734365"
+	},
+	"item": [
+		{
+			"name": "A01",
+			"item": [
+				{
+					"name": "A01: Access Control",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a01/profile?username=alice",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a01",
+								"profile"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "alice"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A02",
+			"item": [
+				{
+					"name": "A02: All data exploit",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a02/all-data",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a02",
+								"all-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "A02: Change password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "newpassword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a02/change-password",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a02",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "A02: Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "John Doe",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a02/register",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a02",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "A02: Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "alice",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "newpassword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a02/login",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a02",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A03",
+			"item": [
+				{
+					"name": "A03: Get customer by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a03/customer?name=alice",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a03",
+								"customer"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "alice"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "A03: SQL Injection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a03/customer?name=' OR '1'='1",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a03",
+								"customer"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "' OR '1'='1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A04",
+			"item": [
+				{
+					"name": "A04: Buy a product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a04/buy-product",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a04",
+								"buy-product"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A07",
+			"item": [
+				{
+					"name": "A07: Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a07/register",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a07",
+								"register"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "bondJames",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "IamY0u",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A08",
+			"item": [
+				{
+					"name": "Get Profile Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJpZCI6MiwidXNlcm5hbWUiOiJib2IiLCJpYXQiOjE2ODY3MzgxOTZ9Ez8y5ouhSgzYmti9PHR7XkcjMRE=",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gc7gym-8080.csb.app/MyApp/a01/profile?username=alice",
+							"protocol": "https",
+							"host": [
+								"gc7gym-8080",
+								"csb",
+								"app"
+							],
+							"path": [
+								"MyApp",
+								"a01",
+								"profile"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "alice"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A09",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json\\r\\n\\r\\nGET /secret HTTP/1.1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "alice",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "newpassword",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SandBox_BaseURL3000}}/a09/login",
+							"host": [
+								"{{SandBox_BaseURL3000}}"
+							],
+							"path": [
+								"a09",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhbGljZSIsImlhdCI6MTY4NjczODE5Nn0.TPzLmi6Hd0OHUSgyj2JrYvTyldJt7XkeVI5uPMb-PEU",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "SandBox_BaseURL3000",
+			"value": "https://jnxhlq-8080.csb.app/MyApp"
+		}
+	]
+}
